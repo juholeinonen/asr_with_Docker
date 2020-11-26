@@ -4,8 +4,8 @@ import os
 import sys
 
 
-wav_name = "data/align/wav.scp"
-utt2spk_name = "data/align/utt2spk"
+wav_name = "data/eval/wav.scp"
+utt2spk_name = "data/eval/utt2spk"
 basepath = "data/src/wavs"
 
 with open(wav_name, "w", encoding="utf-8") as wavlist_file,\
