@@ -4,6 +4,11 @@
 bin_folder=asr_with_Docker/bin
 csv_file=$bin_folder/phone-finnish-finnish.csv
 
+smaller_lm=2gram.lm.gz
+larger_lm=3gram.lm.gz
+txt_for_dict=200000.words
+mkgraph_params="--remove-oov --self-loop-scale 1.0"
+
 ln -s ../wsj/s5/utils utils
 ln -s ../wsj/s5/steps steps
 
@@ -49,7 +54,7 @@ y
 EOF
 
 
-python3 $bin_folder/change_lex_pho.py data/local/lm/200000.words $csv_file
+python3 $bin_folder/change_lex_pho.py data/local/lm/$txt_for_dict $csv_file
 mv lexicon.txt data/dict
 
 extra=3
@@ -63,9 +68,9 @@ utils/prepare_lang.sh --num-extra-phone-disambig-syms $extra data/dict "<UNK>" d
 # Overwrite L_disambig.fst
 #common/make_lfst_wb.py $(tail -n$extra $dir/phones/disambig.txt) < $tmpdir/lexiconp_disambig.txt | fstcompile --isymbols=$dir/phones.txt --osymbols=$dir/words.txt --keep_isymbols=false --keep_osymbols=false | fstaddselfloops  $dir/phones/wdisambig_phones.int $dir/phones/wdisambig_words.int | fstarcsort --sort_type=olabel > $dir/L_disambig.fst 
 
-utils/format_lm.sh data/lang data/local/lm/2gram.lm.gz data/dict/lexicon.txt data/lang/test
+utils/format_lm.sh data/lang data/local/lm/$smaller_lm data/dict/lexicon.txt data/lang/test
 mv data/lang/test/G.fst data/lang/G.fst
 
-utils/mkgraph.sh --remove-oov --self-loop-scale 1.0 data/lang exp/nnet3/chain exp/ex3_word/graph
+utils/mkgraph.sh "$mkgraph_params"  data/lang exp/nnet3/chain exp/ex3_word/graph
 
-utils/build_const_arpa_lm.sh data/local/lm/3gram.lm.gz data/lang data/lang_test_3g
+utils/build_const_arpa_lm.sh data/local/lm/$larger_lm data/lang data/lang_test_3g
