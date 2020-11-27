@@ -71,6 +71,7 @@ utils/prepare_lang.sh --num-extra-phone-disambig-syms $extra data/dict "<UNK>" d
 utils/format_lm.sh data/lang data/local/lm/$smaller_lm data/dict/lexicon.txt data/lang/test
 mv data/lang/test/G.fst data/lang/G.fst
 
-utils/mkgraph.sh "$mkgraph_params"  data/lang exp/nnet3/chain exp/ex3_word/graph
+utils/mkgraph.sh $mkgraph_params data/lang exp/nnet3/chain exp/ex3_word/graph
 
+# utils/format_lm.sh data/lang data/local/lm/$larger_lm data/dict/lexicon.txt data/lang_3g
 utils/build_const_arpa_lm.sh data/local/lm/$larger_lm data/lang data/lang_test_3g
