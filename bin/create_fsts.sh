@@ -12,7 +12,7 @@ mkgraph_params="--remove-oov --self-loop-scale 1.0"
 
 ln -s ../wsj/s5/utils utils
 ln -s ../wsj/s5/steps steps
-
+mkdir data/"$version_name"_dict
 cp ../wsj/s5/path.sh .
 
 sed -i '1 s/...$//' path.sh
