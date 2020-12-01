@@ -74,5 +74,5 @@ mv data/"$version_name"_lang_test/G.fst data/"$version_name"_lang/G.fst
 
 utils/mkgraph.sh $mkgraph_params data/"$version_name"_lang exp/nnet3/chain exp/"$version_name"/graph
 
-# utils/format_lm.sh data/lang data/local/lm/$larger_lm data/dict/lexicon.txt data/lang_3g
+utils/format_lm.sh data/"$version_name"_lang data/local/lm/"$version_name"/$larger_lm data/"$version_name"_dict/lexicon.txt data/"$version_name"_larger_lm
 utils/build_const_arpa_lm.sh data/local/lm/"$version_name"/$larger_lm data/"$version_name"_lang data/"$version_name"_const_arpa
