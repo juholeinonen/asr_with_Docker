@@ -12,14 +12,14 @@ data_done=$1
 data_folder=$2
 version_name=$3
 
+nj=1
+
 if [ "$data_done" = false ] ; then
   python3 $bin_folder/make_wav_and_utt2spk.py
 
   utils/utt2spk_to_spk2utt.pl data/"$data_folder"/utt2spk > data/"$data_folder"/spk2utt
 
   utils/copy_data_dir.sh data/"$data_folder" data/"$data_folder"_hires
-
-  nj=1
 
   steps/make_mfcc.sh --nj $nj --mfcc-config conf/mfcc_hires.conf --cmd "run.pl" data/"$data_folder"_hires
   steps/compute_cmvn_stats.sh data/"$data_folder"_hires
