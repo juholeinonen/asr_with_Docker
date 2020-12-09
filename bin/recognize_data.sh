@@ -31,5 +31,5 @@ fi
 
 steps/nnet3/decode.sh --extra-left-context 40 --extra-right-context 0 --frames-per-chunk 140 --beam 20 --lattice-beam 10.0 --min-active 12000 --max-active 21000 --skip-scoring false --nj $nj --post-decode-acwt 10.0 --acwt 1.0 --online-ivector-dir exp/nnet3/ivectors_"$data_folder"_hires/ exp/"$version_name"/graph data/"$data_folder"_hires/ exp/nnet3/chain/"$data_folder"_"$version_name"
 
-steps/lmrescore.sh --self-loop-scale 1.0 data/"$version_name"_lang data/"$version_name"lang_3g data/"$data_folder"_hires exp/nnet3/chain/decode_ex3_word exp/nnet3/chain/rescored_normal_ex3_word
-steps/lmrescore_const_arpa.sh data/lang data/lang_test_3g data/"$data_folder"_hires exp/nnet3/chain/decode_ex3_word exp/nnet3/chain/rescored_ex3_word
+steps/lmrescore.sh --self-loop-scale 1.0 data/"$version_name"_lang data/"$version_name"_larger_lm data/"$data_folder"_hires exp/nnet3/chain/"$data_folder"_"$version_name" exp/nnet3/chain/rescored_"$data_folder"_"$version_name"_larger_lm
+steps/lmrescore_const_arpa.sh data/"$version_name"_lang data/"$version_name"_const_arpa data/"$data_folder"_hires exp/nnet3/chain/"$data_folder"_"$version_name" exp/nnet3/chain/rescored_"$data_folder"_"$version_name"_const_arpa
